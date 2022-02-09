@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="outside">
+<header style="text-align: center;"><h1 style="font-size:400%;"><strong>Top 15 Books of the Month</strong></h1></header>
+
+<div id="content"></div>
+<footer></footer>
+
+</div>
+
+
+
+    <script>
+    $.get("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=txAzBOVxTpflhEes8iVZrVsvHIQwgsPx", function (data){
+    
+    console.log(data.results.books);
+    console.log(data);
+    var books=data.results.books;
+        books.forEach(CreateCards);
+
+    })
+
+  
+
+    function CreateCards(item){
+    var card = $("<div></div>").attr("class", "card").css("margin-top", "2vh").css("margin-left","5.25vw").attr("class","lol2").css("margin-right", "2vw").css("display","inline-block").css("width","18rem");
+    var img = $("<img></img>").attr("src", item.book_image).attr("class", "card-img-top").css("height", "50vh");
+    var div2 = $("<div></div>").attr("class", "card-body").css("height", "30vh").attr("class","lol2");
+    var title= $("<h5></h5>").attr("class", "card-title").text(item.title);
+    var author= $("<h6></h6>").text(item.author);
+    var desc= $("<p></p>").attr("class", "card-text").text(item.description);
+    var button =$('<a>Buy</a>' ).attr({ class:"btn btn-secondary", href:item.amazon_product_url});
+
+
+    card.append(img);
+    div2.append(title);
+    div2.append(desc);
+    div2.append(button);
+    card.append(author);
+    card.append(div2);        
+    
+    console.log(item.author);
+  
+
+    var x = card.appendTo("#content");
+    
+    $.get(`https://booksrun.com/api/v3/price/buy/${item.primary_isbn10}?key=d3m8etzkbado8vkgr7p4`, function(data){
+
+        const Pris = data.result.offers.booksrun.new.price;
+        var Price = (Pris == undefined) ? "Out of Stock" : `${data.result.offers.booksrun.new.price} $`;
+        (Pris == undefined) ? $( button ).remove() : false;
+
+
+
+var priceDiv = $('<p id="out" style=" margin-left:5%;"></p>').attr({ class:"card-text btn btn-secondary"}).text(Price);
+div2.append(priceDiv);
+
+
+});
+
+    return x;
+    }
+  
+    </script>
+
+</body>
+</html>

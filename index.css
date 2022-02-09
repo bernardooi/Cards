@@ -1,0 +1,36 @@
+header{
+    height: 12vh;
+    width: 100vw;
+    background-color: rgb(114, 114, 114);
+    margin-top: -12vh;
+    float: left;
+}
+#content{
+    margin-top: 5vh;
+    width:70vw;
+    height: auto;
+    background-color:  rgb(189, 189, 189);
+margin-left:16%;
+margin-bottom: 5vh;
+opacity: 90%;
+float: left;
+}
+footer{
+    width: 100vw;
+    height: 10vh;
+    background-color: rgb(114, 114, 114) ;
+    float:left;
+}
+#outside{
+    background-color: red;
+    width: 100vw;
+    height: 90%;
+    padding-top:12vh;
+    background:url(https://i.pinimg.com/originals/83/4d/59/834d59420f8381b83e62ef1aeede3da7.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+}
+.lol2{
+    float: left;
+}
